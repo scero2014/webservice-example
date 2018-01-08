@@ -1,0 +1,3 @@
+# Solo se se desea cambiar el endpoint por defecto donde se exponen los servicios WS (por defecto /services)
+#cxf:
+#  path: /ServiceExample
