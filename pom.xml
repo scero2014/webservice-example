@@ -34,6 +34,11 @@
             <artifactId>jaxws-rt</artifactId>
             <version>2.1.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>3.2.1</version>
+        </dependency>
 
         <!-- Utils -->
         <dependency>
@@ -42,6 +47,19 @@
             <version>1.16.18</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>net.scero.ApplicationWS</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
     <profiles>
         <profile>
@@ -97,7 +115,7 @@
         </profile>
 
         <profile>
-            <id>generate-WS</id>
+            <id>generate-WS-service</id>
             <build>
                 <plugins>
                     <plugin>

@@ -9,8 +9,7 @@ import com.sun.xml.ws.developer.SchemaValidation;
 import net.scero.model.RequestExample;
 import net.scero.model.ResponseExample;
 
-@SchemaValidation
-@WebService(name = "MessagingWS")
+@WebService(name = "MessagingWS", serviceName = "MessagingWS", targetNamespace = "http://com.aam.jaxws.server/")
 public class WebserviceApi {
 	@WebMethod
 	@WebResult(name = "responseExample")
