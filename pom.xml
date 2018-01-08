@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+    </parent>
+
+    <groupId>net.scero</groupId>
+    <artifactId>webservice-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- SpringBoot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!-- Utils -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <properties>
+                <serverURL>http://localhost</serverURL>
+            </properties>
+            <id>generate-WS-Client</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <version>1.12</version>
+                        <executions>
+                            <execution>
+                                <id>LEO-WS</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <wsdlUrls>
+                                        <wsdlUrl>${serverURL}/webservices/SceroWS?wsdl</wsdlUrl>
+                                    </wsdlUrls>
+                                    <sourceDestDir>src/main/java</sourceDestDir>
+                                    <packageName>com.barcelo.messaging.wsclient.leo</packageName>
+                                </configuration>
+                            </execution>
+                            <!--
+                            Se pueden incluir N webservices
+                            <execution>
+                                <id>OPERATIONAL-WS</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <wsdlUrls>
+                                        <wsdlUrl>${serverURL}/<<ruta>>?wsdl</wsdlUrl>
+                                    </wsdlUrls>
+                                    <sourceDestDir>src/main/java</sourceDestDir>
+                                    <packageName>net.scero.???</packageName>
+                                </configuration>
+                            </execution>
+                            -->
+                        </executions>
+                        <configuration>
+                            <extension>true</extension>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>generate-WS-service</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jvnet.jax-ws-commons</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <executions>
+                            <execution>
+                                <id>MESSAGING-WS</id>
+                                <goals>
+                                    <goal>wsgen</goal>
+                                </goals>
+                                <phase>prepare-package</phase>
+                                <configuration>
+                                    <sei>net.scero.ws.WebserviceApi</sei>
+                                    <keep>true</keep>
+                                    <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+                                    <inlineSchemas>true</inlineSchemas>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
