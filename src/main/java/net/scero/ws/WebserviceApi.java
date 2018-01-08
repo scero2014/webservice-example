@@ -5,7 +5,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-import com.sun.xml.internal.ws.developer.SchemaValidation;
+import com.sun.xml.ws.developer.SchemaValidation;
 import net.scero.model.RequestExample;
 import net.scero.model.ResponseExample;
 
